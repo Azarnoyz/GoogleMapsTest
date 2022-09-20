@@ -27,7 +27,6 @@ class MapFragment : Fragment(), OnMapReadyCallback {
     private var _binding: FragmentMapBinding? = null
     private val binding get() = _binding!!
 
-
     private lateinit var mMap: GoogleMap
     private lateinit var mClusterManager: ClusterManager<Place>
 
@@ -45,26 +44,22 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(this)
-
-        initSpotsObserver()
-
     }
 
     private fun initSpotsObserver() {
         mapViewModel.hotSpotsResult.observe(requireActivity()) {
-            hideLoaderAndSetAlpha()
+            hideLoader()
             setUpClusterer(it)
         }
     }
 
-    private fun hideLoaderAndSetAlpha() = with(binding) {
-        mapLayout.alpha = 1f
+    private fun hideLoader() = with(binding) {
         loader.visibility = View.GONE
     }
 
-
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
+        initSpotsObserver()
     }
 
     private fun setUpClusterer(hotSpotsResult: List<Place>) {
@@ -103,4 +98,8 @@ class MapFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }

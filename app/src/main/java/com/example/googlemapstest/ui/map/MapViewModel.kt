@@ -28,13 +28,10 @@ class MapViewModel @Inject constructor(private val mapRepository: MapRepository)
             mapRepository.getHotSpots().collect {
                 hotSpots.add(it)
             }
-
         }
-
         viewModelScope.launch {
             def.await()
             _hotSpotsResult.postValue(hotSpots)
         }
-
     }
 }

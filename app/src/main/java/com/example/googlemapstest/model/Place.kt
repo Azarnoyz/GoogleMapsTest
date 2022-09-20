@@ -25,5 +25,4 @@ data class Place(
     override fun getSnippet(): String {
         return snippet
     }
-
 }

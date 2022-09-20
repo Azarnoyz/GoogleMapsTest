@@ -63,7 +63,6 @@ class CustomClusterRender(
         }
     }
 
-
     override fun onClusterUpdated(cluster: Cluster<Place>, marker: Marker) {}
 
     fun changeMarkerToCluster(shouldBeCluster: Boolean) {
